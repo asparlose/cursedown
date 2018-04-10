@@ -3,6 +3,7 @@ package main
 import (
 	"archive/zip"
 	"fmt"
+	"os"
 	"sync"
 
 	"github.com/jessevdk/go-flags"
@@ -14,6 +15,7 @@ func main() {
 
 	if err != nil {
 		if e, ok := err.(*flags.Error); ok && e.Type == flags.ErrHelp {
+			p.WriteHelp(os.Stderr)
 			return
 		}
 		panic(err)
