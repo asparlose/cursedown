@@ -14,6 +14,8 @@ import (
 func override(z *zip.Reader, target string) error {
 	modpack := zipfile.NewReader(z)
 
+	cnt := 0
+
 	for f := range modpack.Find(zipfile.And(zipfile.File(), zipfile.DescendantsOf("overrides"))).Iter(context.Background()) {
 		t := f.Name[10:]
 
@@ -38,7 +40,10 @@ func override(z *zip.Reader, target string) error {
 			return err
 		}
 		fmt.Println(t)
+		cnt++
 	}
+
+	fmt.Printf("Overrided %d files\n", cnt)
 
 	return nil
 }
